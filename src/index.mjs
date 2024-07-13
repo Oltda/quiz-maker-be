@@ -13,9 +13,11 @@ const app = express()
 
 dotenv.config()
 
+//compass connect uri -> mongodb://localhost:27017
 mongoose
-  .connect("mongodb://localhost/quiz_maker")
-  .then(() => console.log("connected to databse"))
+  // .connect("mongodb://localhost/quiz_maker")
+  .connect(process.env.DATABASE_URI)
+  .then(() => console.log("connected to database"))
   .catch((err) => console.log(`Error: ${err}`))
 
 app.use(express.json())
