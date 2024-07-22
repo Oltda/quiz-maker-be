@@ -24,6 +24,11 @@ const QuizSchema = new mongoose.Schema({
     required: true,
     unique: false,
   },
+  accessKey: {
+    type: mongoose.Schema.Types.String,
+    required: true,
+    unique: false,
+  },
   questions: {
     type: [QuestionSchema],
     required: true,
