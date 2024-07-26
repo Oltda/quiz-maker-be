@@ -20,6 +20,109 @@ export const createValidationSchema = {
   },
 }
 
+// export const quizSubmissionValidationSchema = {
+//   accessKey: {
+//     isString: {
+//       errorMessage: "accessKey must be a string",
+//     },
+//     notEmpty: {
+//       errorMessage: "accessKey must not be empty",
+//     },
+//   },
+//   studentName: {
+//     isString: {
+//       errorMessage: "studentName must be a string",
+//     },
+//     notEmpty: {
+//       errorMessage: "studentName must not be empty",
+//     },
+//   },
+//   answers: {
+//     isArray: {
+//       errorMessage: "Questions must be an array",
+//     },
+//     notEmpty: {
+//       errorMessage: "Questions must not be empty",
+//     },
+//     custom: {
+//       options: (answers) => {
+//         answers.forEach((answ) => {
+//           if (
+//             typeof answ.questionId !== "string" ||
+//             answ.questionId.trim() === ""
+//           ) {
+//             throw new Error("Each answer must have a non-empty questionId")
+//           }
+//           if (
+//             typeof answ.submittedAnswer !== "string" ||
+//             answ.submittedAnswer.trim() === ""
+//           ) {
+//             throw new Error(
+//               "Each answer object must have a non-empty submittedAnswer"
+//             )
+//           }
+//         })
+//         return true
+//       },
+//     },
+//   },
+// }
+
+export const quizSubmissionValidationSchema = {
+  accessKey: {
+    isString: {
+      errorMessage: "accessKey must be a string",
+    },
+    notEmpty: {
+      errorMessage: "accessKey must not be empty",
+    },
+  },
+  quizId: {
+    isString: {
+      errorMessage: "quizId must be a string",
+    },
+    notEmpty: {
+      errorMessage: "quizId must not be empty",
+    },
+  },
+  studentName: {
+    isString: {
+      errorMessage: "studentName must be a string",
+    },
+    notEmpty: {
+      errorMessage: "studentName must not be empty",
+    },
+  },
+  answers: {
+    custom: {
+      options: (answers) => {
+        if (typeof answers !== "object" || Array.isArray(answers)) {
+          throw new Error("Answers must be an object")
+        }
+        const keys = Object.keys(answers)
+        if (keys.length === 0) {
+          throw new Error("Answers must not be empty")
+        }
+        keys.forEach((questionId) => {
+          const answer = answers[questionId]
+          if (typeof questionId !== "string" || questionId.trim() === "") {
+            throw new Error(`Each key in answers must be a non-empty string`)
+          }
+          if (
+            typeof answer.submittedAnswer !== "string" ||
+            answer.submittedAnswer.trim() === ""
+          ) {
+            throw new Error(
+              `Each answer object must have a non-empty submittedAnswer for questionId ${questionId}`
+            )
+          }
+        })
+        return true
+      },
+    },
+  },
+}
+
 export const quizValidationSchema = {
   title: {
     isString: {
@@ -72,3 +175,22 @@ export const quizValidationSchema = {
     },
   },
 }
+
+// {
+//    "accessKey":"capitals1",
+//    "studentName" : "Thanh",
+//    "answers":{
+//     "669e764ed57ced3df5470f36": {
+//       "submittedAnswer": "Berlin"
+//     },
+//       "669e764ed57ced3df5470f37": {
+//       "submittedAnswer": "Prague"
+//     },
+//       "669e764ed57ced3df5470f38": {
+//       "submittedAnswer": "Rome"
+//     },
+//       "669e764ed57ced3df5470f39": {
+//       "submittedAnswer": "Hanoi"
+//     }
+//    }
+// }
