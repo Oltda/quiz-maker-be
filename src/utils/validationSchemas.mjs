@@ -1,4 +1,4 @@
-export const createValidationSchema = {
+export const registerUserSchema = {
   username: {
     isLength: {
       options: {
@@ -12,61 +12,55 @@ export const createValidationSchema = {
     },
     isString: true,
   },
-  displayName: {
-    notEmpty: true,
+  email: {
+    notEmpty: {
+      errorMessage: "Email must not be empty",
+    },
+    isEmail: {
+      errorMessage: "Email must be a valid email address",
+    },
   },
   password: {
-    notEmpty: true,
+    notEmpty: {
+      errorMessage: "Password must not be empty",
+    },
   },
 }
 
-// export const quizSubmissionValidationSchema = {
-//   accessKey: {
-//     isString: {
-//       errorMessage: "accessKey must be a string",
-//     },
-//     notEmpty: {
-//       errorMessage: "accessKey must not be empty",
-//     },
-//   },
-//   studentName: {
-//     isString: {
-//       errorMessage: "studentName must be a string",
-//     },
-//     notEmpty: {
-//       errorMessage: "studentName must not be empty",
-//     },
-//   },
-//   answers: {
-//     isArray: {
-//       errorMessage: "Questions must be an array",
-//     },
-//     notEmpty: {
-//       errorMessage: "Questions must not be empty",
-//     },
-//     custom: {
-//       options: (answers) => {
-//         answers.forEach((answ) => {
-//           if (
-//             typeof answ.questionId !== "string" ||
-//             answ.questionId.trim() === ""
-//           ) {
-//             throw new Error("Each answer must have a non-empty questionId")
-//           }
-//           if (
-//             typeof answ.submittedAnswer !== "string" ||
-//             answ.submittedAnswer.trim() === ""
-//           ) {
-//             throw new Error(
-//               "Each answer object must have a non-empty submittedAnswer"
-//             )
-//           }
-//         })
-//         return true
-//       },
-//     },
-//   },
-// }
+export const userLoginSchema = {
+  email: {
+    notEmpty: {
+      errorMessage: "Email must not be empty",
+    },
+    isEmail: {
+      errorMessage: "Email must be a valid email address",
+    },
+  },
+  password: {
+    notEmpty: {
+      errorMessage: "Password must not be empty",
+    }
+  },
+}
+
+export const forgotPasswordSchema = {
+  email: {
+    notEmpty: {
+      errorMessage: "Email must not be empty",
+    },
+    isEmail: {
+      errorMessage: "Email must be a valid email address",
+    },
+  }
+}
+
+export const resetPasswordSchema = {
+  password: {
+    notEmpty: {
+      errorMessage: "Password must not be empty",
+    },
+  },
+}
 
 export const quizSubmissionValidationSchema = {
   accessKey: {
