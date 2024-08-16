@@ -2,6 +2,7 @@ import { Router } from "express"
 import { Quiz } from "../mongoose/schemas/quiz.mjs"
 import { checkSchema, validationResult } from "express-validator"
 import { quizValidationSchema } from "../utils/validationSchemas.mjs"
+import authenticateToken from "../middlewares/authenticateToken.mjs"
 
 const router = Router()
 
@@ -28,7 +29,7 @@ router.post(
   }
 )
 
-router.get("/api/quiz/:id", async (request, response) => {
+router.get("/api/quiz/:id", authenticateToken, async (request, response) => {
   const id = request.params.id
   try {
     const quiz = await Quiz.findById(id)
