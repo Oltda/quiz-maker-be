@@ -8,6 +8,7 @@ import mongoose from "mongoose"
 import MongoStore from "connect-mongo"
 import routes from "./routes/index.mjs"
 import dotenv from "dotenv"
+import cors from "cors"
 
 const app = express()
 
@@ -38,6 +39,11 @@ app.use(
 
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(
+  cors({
+    origin: "http://localhost:8080",
+  })
+)
 
 app.use(routes)
 
@@ -51,7 +57,6 @@ app.get("/", (request, response) => {
   request.session.visited = true
   response.status(201).send({ msg: "Hello" })
 })
-
 
 app.get("/api/auth/status", (request, response) => {
   console.log("USER", request)

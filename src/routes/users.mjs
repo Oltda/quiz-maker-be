@@ -23,8 +23,6 @@ const router = Router()
 
 dotenv.config()
 
-
-
 router.post(
   "/register",
   checkSchema(registerUserSchema),
@@ -97,7 +95,7 @@ router.post(
           pass: process.env.MAIL_APP_PASWORD,
         },
       })
-
+      //TODO  -- update url link for reset password - environment
       var mailOptions = {
         from: "quiz.maker.service@gmail.com",
         to: "dan.olt@hotmail.cz",
