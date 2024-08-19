@@ -58,7 +58,8 @@ router.post(
               { expiresIn: "1d" }
             )
             res.cookie("token", token)
-            return res.json("Success")
+            // return res.json("Success")
+            return res.send({ token: token })
           } else {
             return res.json("The password is incorrect")
           }
