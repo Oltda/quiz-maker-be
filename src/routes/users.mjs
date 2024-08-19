@@ -60,7 +60,7 @@ router.post(
             res.cookie("token", token, {
               httpOnly: true,
               secure: false,
-              sameSite: "Lax",
+              sameSite: "None",
               maxAge: 3600000,
             })
             // return res.json("Success")
