@@ -57,7 +57,12 @@ router.post(
               process.env.JWT_SECRET,
               { expiresIn: "1d" }
             )
-            res.cookie("token", token)
+            res.cookie("token", token, {
+              httpOnly: true,
+              secure: false,
+              sameSite: "Lax",
+              maxAge: 3600000,
+            })
             // return res.json("Success")
             return res.send({ token: token })
           } else {

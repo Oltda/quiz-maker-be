@@ -4,11 +4,7 @@ const authenticateToken = (req, res, next) => {
   const token = req.cookies.token
 
   if (!token) {
-    //return res.sendStatus(401)
-    return res.send({
-      unauthorized: "!!!",
-      cookies: req.cookies,
-    })
+    return res.sendStatus(401)
   }
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
