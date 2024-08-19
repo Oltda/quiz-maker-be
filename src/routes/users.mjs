@@ -59,8 +59,8 @@ router.post(
             )
             res.cookie("token", token, {
               httpOnly: true,
-              secure: false,
-              sameSite: "None",
+              secure: true,
+              sameSite: "Strict",
               maxAge: 3600000,
             })
             // return res.json("Success")

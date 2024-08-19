@@ -41,7 +41,8 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(
   cors({
-    origin: "http://localhost:8080",
+    // origin: "http://localhost:8080",
+    origin: ["http://localhost:8080", "http://127.0.0.1:8080"],
     credentials: true,
     methods: ["GET", "POST"],
   })
