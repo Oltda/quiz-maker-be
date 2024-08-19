@@ -31,6 +31,8 @@ router.post(
 
 router.get("/api/quiz/:id", authenticateToken, async (request, response) => {
   const id = request.params.id
+  
+
   try {
     const quiz = await Quiz.findById(id)
     if (!quiz) {
