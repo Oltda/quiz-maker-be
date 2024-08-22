@@ -80,15 +80,15 @@ router.get("/auth-status", (req, res) => {
   const token = req.cookies?.token
 
   if (!token) {
-    return res.send({ status: "unauthenticated" })
+    return res.send({ authenticated: false })
   }
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
-      return res.send({ status: "unauthenticated" })
+      return res.send({ authenticated: false })
     }
 
-    return res.send({ status: "authenticated" })
+    return res.send({ authenticated: true })
   })
 })
 
