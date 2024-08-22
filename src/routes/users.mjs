@@ -76,6 +76,22 @@ router.post(
   }
 )
 
+router.get("/auth-status", (req, res) => {
+  const token = req.cookies?.token
+
+  if (!token) {
+    return res.send({ status: "unauthenticated" })
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      return res.send({ status: "unauthenticated" })
+    }
+
+    return res.send({ status: "authenticated" })
+  })
+})
+
 router.post("/logout", (req, res) => {
   res.clearCookie("token")
   return res.json("Logged out successfully")

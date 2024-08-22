@@ -61,7 +61,4 @@ app.get("/", (request, response) => {
   response.status(201).send({ msg: "Hello" })
 })
 
-app.get("/api/auth/status", (request, response) => {
-  console.log("USER", request)
-  return request.user ? response.send(request.user) : response.sendStatus(401)
-})
+
