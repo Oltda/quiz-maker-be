@@ -61,4 +61,6 @@ app.get("/", (request, response) => {
   response.status(201).send({ msg: "Hello" })
 })
 
-
+app.get("/health", (req, res) => {
+  res.send({ status: "ok" })
+})
