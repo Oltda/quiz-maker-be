@@ -122,7 +122,7 @@ router.post(
         from: "quiz.maker.service@gmail.com",
         to: "dan.olt@hotmail.cz",
         subject: "Reset your password",
-        text: `http://localhost:5173/reset-password/${user._id}/${token}`,
+        text: `http://localhost:8080/reset-password/${user._id}/${token}`,
       }
 
       transporter.sendMail(mailOptions, function (error, info) {
