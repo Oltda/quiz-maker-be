@@ -18,7 +18,7 @@ router.post(
     //   return response.sendStatus(401)
     // }
 
-    const data = { ...request.body, userId: request.user._id }
+    const data = { ...request.body, userId: request.user.userId }
     const newQuiz = new Quiz(data)
     try {
       const savedQuiz = await newQuiz.save()
@@ -32,7 +32,6 @@ router.post(
 
 router.get("/api/quiz/:id", authenticateToken, async (request, response) => {
   const id = request.params.id
-  
 
   try {
     const quiz = await Quiz.findById(id)
