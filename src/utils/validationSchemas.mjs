@@ -39,7 +39,7 @@ export const userLoginSchema = {
   password: {
     notEmpty: {
       errorMessage: "Password must not be empty",
-    }
+    },
   },
 }
 
@@ -51,7 +51,7 @@ export const forgotPasswordSchema = {
     isEmail: {
       errorMessage: "Email must be a valid email address",
     },
-  }
+  },
 }
 
 export const resetPasswordSchema = {
@@ -140,13 +140,11 @@ export const quizValidationSchema = {
             typeof question.label !== "string" ||
             question.label.trim() === ""
           ) {
-            throw new Error(
-              "Each question must have a non-empty correct answer"
-            )
+            throw new Error("Each question must have a non-empty label")
           }
           if (
             typeof question.correctAnswer !== "string" ||
-            question.label.trim() === ""
+            question.correctAnswer.trim() === ""
           ) {
             throw new Error("Each question must have a non-empty label")
           }

@@ -9,13 +9,14 @@ const router = Router()
 router.post(
   "/api/quiz",
   checkSchema(quizValidationSchema),
+  authenticateToken,
   async (request, response) => {
     const result = validationResult(request)
     if (!result.isEmpty()) return response.status(400).send(result.array())
 
-    if (!request.user) {
-      return response.sendStatus(401)
-    }
+    // if (!request.user) {
+    //   return response.sendStatus(401)
+    // }
 
     const data = { ...request.body, userId: request.user._id }
     const newQuiz = new Quiz(data)

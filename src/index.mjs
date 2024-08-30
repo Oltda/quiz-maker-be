@@ -10,6 +10,8 @@ import routes from "./routes/index.mjs"
 import dotenv from "dotenv"
 import cors from "cors"
 
+//https://www.youtube.com/watch?v=YXjORp170Lg&t=564s
+
 const app = express()
 
 dotenv.config()
