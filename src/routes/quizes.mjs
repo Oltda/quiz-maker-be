@@ -45,4 +45,16 @@ router.get("/api/quiz/:id", authenticateToken, async (request, response) => {
   }
 })
 
+router.get("/api/my-quizes", authenticateToken, async (request, response) => {
+  try {
+    const quizes = await Quiz.find({ userId: request.user?.userId })
+    return response.status(200).json(quizes)
+  } catch (err) {
+    console.log(err)
+    return response
+      .sendStatus(500)
+      .json({ error: "Could not retrieve quizzes" })
+  }
+})
+
 export default router
