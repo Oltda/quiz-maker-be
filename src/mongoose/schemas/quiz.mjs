@@ -29,6 +29,10 @@ const QuizSchema = new mongoose.Schema({
     required: true,
     unique: false,
   },
+  active: {
+    type: mongoose.Schema.Types.Boolean,
+    required:true,
+  },
   questions: {
     type: [QuestionSchema],
     required: true,

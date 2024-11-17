@@ -126,6 +126,14 @@ export const quizValidationSchema = {
       errorMessage: "Title must not be empty",
     },
   },
+  active: {
+    isBoolean: {
+      errorMessage: "Active must be a boolean",
+    },
+    notEmpty: {
+      errorMessage: "Active must not be empty",
+    },
+  },
   questions: {
     isArray: {
       errorMessage: "Questions must be an array",

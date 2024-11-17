@@ -36,7 +36,7 @@ router.get("/api/quiz/:id", authenticateToken, async (request, response) => {
   try {
     const quiz = await Quiz.findById(id)
     if (!quiz) {
-      return response.sendStatus(404) // Return 404 if quiz not found
+      return response.sendStatus(404)
     }
     return response.status(200).json(quiz) //
   } catch (err) {
@@ -44,6 +44,29 @@ router.get("/api/quiz/:id", authenticateToken, async (request, response) => {
     return response.sendStatus(404)
   }
 })
+
+router.put(
+  "/api/quiz/:id",
+  authenticateToken,
+  checkSchema(quizValidationSchema),
+  async (request, response) => {
+    const id = request.params.id
+    const data = { ...request.body, userId: request.user.userId }
+
+    console.log("DATA !!!!!", data)
+
+    try {
+      const quiz = await Quiz.findByIdAndUpdate(id, data, { new: true })
+      if (!quiz) {
+        return response.status(404).send({ error: "Quiz not found" })
+      }
+      return response.status(200).json(quiz)
+    } catch (err) {
+      console.log(err)
+      return response.sendStatus(404)
+    }
+  }
+)
 
 router.get("/api/my-quizes", authenticateToken, async (request, response) => {
   try {
