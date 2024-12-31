@@ -4,6 +4,7 @@ import { checkSchema, validationResult } from "express-validator"
 import { quizValidationSchema } from "../utils/validationSchemas.mjs"
 import authenticateToken from "../middlewares/authenticateToken.mjs"
 
+
 const router = Router()
 
 router.post(
@@ -16,6 +17,7 @@ router.post(
 
     const data = { ...request.body, userId: request.user.userId }
     const newQuiz = new Quiz(data)
+
     try {
       const savedQuiz = await newQuiz.save()
       return response.status(201).send(savedQuiz)
@@ -70,7 +72,7 @@ router.put(
   }),
   async (request, response) => {
     const userId = request.user.userId
-    const quizUpdates = request.body // Expecting an array of quiz updates
+    const quizUpdates = request.body 
 
     if (!Array.isArray(quizUpdates)) {
       return response
@@ -90,8 +92,6 @@ router.put(
       })
 
       const updatedQuizzes = await Promise.all(updatePromises)
-
-      console.log("updatedQuizzes", updatedQuizzes)
 
       const successfulUpdates = updatedQuizzes.filter((quiz) => quiz !== null)
 

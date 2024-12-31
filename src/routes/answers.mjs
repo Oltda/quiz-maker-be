@@ -3,12 +3,14 @@ import { checkSchema, validationResult, matchedData } from "express-validator"
 import { quizSubmissionValidationSchema } from "../utils/validationSchemas.mjs"
 import { Quiz } from "../mongoose/schemas/quiz.mjs"
 import QuizSubmission from "../mongoose/schemas/answer.mjs"
+import authenticateToken from "../middlewares/authenticateToken.mjs"
 
 const router = Router()
 
 router.post(
   "/api/answers",
   checkSchema(quizSubmissionValidationSchema),
+  authenticateToken,
   async (request, response) => {
     if (!request.user) {
       return response.sendStatus(401)
@@ -21,15 +23,24 @@ router.post(
 
     const quiz = await Quiz.findById(quizId)
     if (!quiz) {
-      return response.sendStatus(404) // Return 404 if quiz not found
+      return response.sendStatus(404)
     }
 
-    const results = quiz.questions.map((quest) => ({
-      questionId: quest._id,
-      label: quest.label,
-      isCorrect: quest.correctAnswer === answers[quest._id].submittedAnswer,
-      submittedAnswer: answers[quest._id].submittedAnswer,
-    }))
+  
+
+    const results = quiz.questions.map((quest) => {
+      
+      const correctAnswers = quest.answers
+        .filter((answ) => answ.isCorrect)
+        .map((a) => a.value)
+
+      return {
+        questionId: quest._id,
+        label: quest.label,
+        isCorrect: correctAnswers.includes(answers[quest._id].submittedAnswer),
+        submittedAnswer: answers[quest._id].submittedAnswer,
+      }
+    })
 
     const answerPayload = {
       quizId: quiz._id,
@@ -51,3 +62,4 @@ router.post(
 )
 
 export default router
+

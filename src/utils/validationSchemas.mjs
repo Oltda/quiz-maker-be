@@ -151,22 +151,28 @@ export const quizValidationSchema = {
             throw new Error("Each question must have a non-empty label")
           }
           if (
-            typeof question.correctAnswer !== "string" ||
-            question.correctAnswer.trim() === ""
-          ) {
-            throw new Error("Each question must have a non-empty label")
-          }
-          if (
             !Array.isArray(question.answers) ||
             question.answers.length === 0
           ) {
             throw new Error(
-              "Each question must have a non-empty array of answers"
+              `Answer must be an object`
             )
           }
           question.answers.forEach((answer) => {
-            if (typeof answer !== "string" || answer.trim() === "") {
+            if (typeof answer !== "object" || answer === null) {
               throw new Error("Each answer must be a non-empty string")
+            }
+
+            if (typeof answer.value !== "string" || answer.value.trim() === "") {
+              throw new Error(
+                "Answer for question must have a non-empty value"
+              )
+            }
+
+            if (
+              typeof answer.isCorrect !== "boolean"
+            ) {
+              throw new Error("isCorrect must be a boolean")
             }
           })
         })
@@ -178,21 +184,4 @@ export const quizValidationSchema = {
 
 
 
-// {
-//    "accessKey":"capitals1",
-//    "studentName" : "Thanh",
-//    "answers":{
-//     "669e764ed57ced3df5470f36": {
-//       "submittedAnswer": "Berlin"
-//     },
-//       "669e764ed57ced3df5470f37": {
-//       "submittedAnswer": "Prague"
-//     },
-//       "669e764ed57ced3df5470f38": {
-//       "submittedAnswer": "Rome"
-//     },
-//       "669e764ed57ced3df5470f39": {
-//       "submittedAnswer": "Hanoi"
-//     }
-//    }
-// }
+

@@ -1,16 +1,24 @@
 import mongoose from "mongoose"
 
+const AnswerSchema = new mongoose.Schema({
+  value: {
+    type: mongoose.Schema.Types.String,
+    required: true,
+  },
+  isCorrect: {
+    type: mongoose.Schema.Types.Boolean,
+    required: true,
+  },
+})
+
 const QuestionSchema = new mongoose.Schema({
   label: {
     type: mongoose.Schema.Types.String,
     required: true,
   },
   answers: {
-    type: [String], // An array of strings
+    type: [AnswerSchema], 
     required: true,
-  },
-  correctAnswer: {
-    type: mongoose.Schema.Types.String,
   },
 })
 
