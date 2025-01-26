@@ -158,6 +158,7 @@ export const quizValidationSchema = {
               `Answer must be an object`
             )
           }
+          const orderSet = new Set()
           question.answers.forEach((answer) => {
             if (typeof answer !== "object" || answer === null) {
               throw new Error("Each answer must be a non-empty string")
@@ -174,6 +175,13 @@ export const quizValidationSchema = {
             ) {
               throw new Error("isCorrect must be a boolean")
             }
+            if (typeof answer.order !== "number") {
+              throw new Error("Answer.order must be a number")
+            }
+            if(orderSet.has(answer.order)){
+              throw new Error("Answer.order must be unique within a question.")
+            }
+            orderSet.add(answer.order)
           })
         })
         return true

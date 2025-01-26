@@ -9,6 +9,10 @@ const AnswerSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.Boolean,
     required: true,
   },
+  order: {
+    type: mongoose.Schema.Types.Number,
+    required: true,
+  },
 })
 
 const QuestionSchema = new mongoose.Schema({
